@@ -11,7 +11,7 @@ RUN unzip -d /opt/gradle /tmp/gradle-*.zip
 RUN ln -s /opt/gradle/gradle-5.6.2 /opt/gradle/latest
 RUN echo 'export GRADLE_HOME=/opt/gradle/latest' >> /root/.bashrc
 RUN echo 'export PATH=${GRADLE_HOME}/bin:${PATH}' >> /root/.bashrc
-RUN echo 'export ''GRADLE_OPTS=-Dorg.gradle.jvmargs="-Xmx4048m"''' >> /root/.bashrc
+RUN echo 'export ''GRADLE_OPTS=-Dorg.gradle.jvmargs="-Xmx4048m -Dfile.encoding=UTF-8 -Duser.country=US -Duser.language=en -Duser.variant"''' >> /root/.bashrc
 RUN wget https://dl.google.com/android/repository/sdk-tools-linux-4333796.zip -P /tmp
 RUN mkdir -p /opt/android_sdk
 RUN unzip -d /opt/android_sdk /tmp/sdk-tools-linux-*.zip
