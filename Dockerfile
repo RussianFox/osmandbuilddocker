@@ -35,4 +35,6 @@ RUN git clone --branch master https://github.com/osmandapp/OsmAnd-resources.git 
 RUN git clone --branch legacy_core https://github.com/osmandapp/OsmAnd-core.git /osmand/git/core-legacy
 RUN git clone --branch master https://github.com/osmandapp/osmandapp.github.io.git /osmand/git/help
 
+RUN cd /osmand/git/android/OsmAnd && ../gradlew --info cleanNoTranslate assembleFullLegacyFatDebug
+
 VOLUME ["/osmand/output"]
