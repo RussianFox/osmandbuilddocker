@@ -29,8 +29,9 @@ RUN apt-get -y upgrade
 RUN mkdir -p /osmand/build
 RUN mkdir -p /osmand/git
 RUN mkdir -p /osmand/output
-RUN git clone https://github.com/osmandapp/Osmand.git /osmand/git/Osmand
-RUN git clone https://github.com/osmandapp/OsmAnd-resources.git /osmand/git/resources
-RUN git clone https://github.com/osmandapp/OsmAnd-core.git /osmand/git/core
+RUN git clone --branch master https://github.com/osmandapp/Osmand.git /osmand/git/android
+RUN git clone --branch master https://github.com/osmandapp/OsmAnd-resources.git /osmand/git/resources
+RUN git clone --branch git checkout development https://github.com/osmandapp/OsmAnd-core.git /osmand/git/legacy_core
+RUN git clone --branch master https://github.com/osmandapp/osmandapp.github.io.git /osmand/git/help
 
 VOLUME ["/osmand/output"]
