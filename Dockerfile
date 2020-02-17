@@ -5,7 +5,7 @@ SHELL ["/bin/bash", "-c"]
 RUN apt-get update
 RUN mkdir -p /usr/share/man/man1
 RUN apt-get -y install openjdk-8-jdk
-RUN apt-get -y install git wget unzip make repo
+RUN apt-get -y install git wget unzip make
 RUN apt-get -y upgrade
 RUN wget https://services.gradle.org/distributions/gradle-5.6.2-bin.zip -P /tmp
 RUN unzip -d /opt/gradle /tmp/gradle-*.zip
