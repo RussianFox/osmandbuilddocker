@@ -34,11 +34,12 @@ RUN /opt/android_sdk/tools/bin/sdkmanager "platform-tools" "build-tools;28.0.3" 
 RUN wget https://dl.google.com/android/repository/android-ndk-r21-linux-x86_64.zip -P /tmp
 RUN mkdir -p /opt/android_ndk
 RUN unzip -d /opt/android_ndk /tmp/android-ndk-r21-linux-x86_64.zip
-RUN echo 'export ANDROID_NDK=/opt/android_ndk' >> /root/.bashrc
+RUN ln -s /opt/android_ndk/android-ndk-r21 /opt/android_ndk/latest
+RUN echo 'export ANDROID_NDK=/opt/android_ndk/latest' >> /root/.bashrc
 RUN mkdir -p /osmand/build
 RUN mkdir -p /osmand/output
 
-RUN cd /osmand/build && repo init -u https://github.com/osmandapp/OsmAnd-manifest -m android_build.xml
-RUN cd /osmand/build/android/OsmAnd && ../gradlew --info cleanNoTranslate assembleFullLegacyFatDebug
+RUN cd /osmand/build && repo init -u https://github.com/osmandapp/OsmAnd-manifest -m android_build.xml && repo sync -d -c -q
+RUN source ~/.bashrc && cd /osmand/build/android/OsmAnd && ../gradlew --info cleanNoTranslate assembleFullLegacyFatDebug && find -iname '*.apk' -exec cp {} /osmand/output/ \;
 
 VOLUME ["/osmand/output"]
