@@ -2,6 +2,14 @@ FROM debian:stretch-slim
 ENV DEBIAN_FRONTEND noninteractive
 SHELL ["/bin/bash", "-c"]
 
+RUN echo '' > /etc/apt/sources.list
+RUN echo 'deb http://deb.debian.org/debian stretch main contrib non-free' >> /etc/apt/sources.list
+RUN echo 'deb-src http://deb.debian.org/debian stretch main contrib non-free' >> /etc/apt/sources.list
+RUN echo 'deb http://deb.debian.org/debian stretch-updates main contrib non-free' >> /etc/apt/sources.list
+RUN echo 'deb-src http://deb.debian.org/debian stretch-updates main contrib non-free' >> /etc/apt/sources.list
+RUN echo 'deb http://security.debian.org/debian-security/ stretch/updates main contrib non-free' >> /etc/apt/sources.list
+RUN echo 'deb-src http://security.debian.org/debian-security/ stretch/updates main contrib non-free' >> /etc/apt/sources.list
+
 RUN apt-get update
 RUN mkdir -p /usr/share/man/man1
 RUN apt-get -y install openjdk-8-jdk
@@ -28,14 +36,9 @@ RUN mkdir -p /opt/android_ndk
 RUN unzip -d /opt/android_ndk /tmp/android-ndk-r21-linux-x86_64.zip
 RUN echo 'export ANDROID_NDK=/opt/android_ndk' >> /root/.bashrc
 RUN mkdir -p /osmand/build
-RUN mkdir -p /osmand/git
 RUN mkdir -p /osmand/output
-RUN git clone --branch master https://github.com/osmandapp/Osmand.git /osmand/git/android
-RUN git clone --branch master https://github.com/osmandapp/OsmAnd-resources.git /osmand/git/resources
-RUN git clone --branch legacy_core https://github.com/osmandapp/OsmAnd-core.git /osmand/git/core-legacy
-RUN git clone --branch master https://github.com/osmandapp/osmandapp.github.io.git /osmand/git/help
-RUN git clone --branch master https://github.com/osmandapp/OsmAnd-manifest.git /osmand/build
 
-RUN cd /osmand/git/android/OsmAnd && ../gradlew --info cleanNoTranslate assembleFullLegacyFatDebug
+RUN cd /osmand/build && repo init -u https://github.com/osmandapp/OsmAnd-manifest -m android_build.xml
+RUN cd /osmand/build/android/OsmAnd && ../gradlew --info cleanNoTranslate assembleFullLegacyFatDebug
 
 VOLUME ["/osmand/output"]
