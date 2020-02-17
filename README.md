@@ -12,3 +12,7 @@ Need RAM 4Gb and 19Gb HDD
 It will be creating image and run first build for Nightly version (last RIN command in Dockerfile, you can comment out a line with #)
 
 Result .apk file will be moved in /osmand/output folder in IMAGE
+
+For run container use:
+
+docker exec --name osmand_build -it -v /osmand/output/:/your/folder/for/apk/in/system/ osmandbuild/dev
