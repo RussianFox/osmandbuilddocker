@@ -5,7 +5,8 @@ SHELL ["/bin/bash", "-c"]
 RUN apt-get update
 RUN mkdir -p /usr/share/man/man1
 RUN apt-get -y install openjdk-8-jdk
-RUN apt-get -y install git wget unzip make
+RUN apt-get -y install git wget unzip make repo
+RUN apt-get -y upgrade
 RUN wget https://services.gradle.org/distributions/gradle-5.6.2-bin.zip -P /tmp
 RUN unzip -d /opt/gradle /tmp/gradle-*.zip
 RUN ln -s /opt/gradle/gradle-5.6.2 /opt/gradle/latest
@@ -26,7 +27,6 @@ RUN wget https://dl.google.com/android/repository/android-ndk-r21-linux-x86_64.z
 RUN mkdir -p /opt/android_ndk
 RUN unzip -d /opt/android_ndk /tmp/android-ndk-r21-linux-x86_64.zip
 RUN echo 'export ANDROID_NDK=/opt/android_ndk' >> /root/.bashrc
-RUN apt-get -y upgrade
 RUN mkdir -p /osmand/build
 RUN mkdir -p /osmand/git
 RUN mkdir -p /osmand/output
@@ -34,6 +34,7 @@ RUN git clone --branch master https://github.com/osmandapp/Osmand.git /osmand/gi
 RUN git clone --branch master https://github.com/osmandapp/OsmAnd-resources.git /osmand/git/resources
 RUN git clone --branch legacy_core https://github.com/osmandapp/OsmAnd-core.git /osmand/git/core-legacy
 RUN git clone --branch master https://github.com/osmandapp/osmandapp.github.io.git /osmand/git/help
+RUN git clone --branch master https://github.com/osmandapp/OsmAnd-manifest.git /osmand/build
 
 RUN cd /osmand/git/android/OsmAnd && ../gradlew --info cleanNoTranslate assembleFullLegacyFatDebug
 
