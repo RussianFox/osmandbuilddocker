@@ -39,8 +39,8 @@ RUN echo 'export ANDROID_NDK=/opt/android_ndk/latest' >> /root/.bashrc
 RUN mkdir -p /osmand/build
 RUN mkdir -p /osmand/output
 RUN echo `alias nightly_build='cd /osmand/build/android/OsmAnd && ../gradlew --info cleanNoTranslate assembleFullLegacyFatDebug && find -iname '*.apk' -exec cp {} /osmand/output/ \;'` >> /root/.bashrc
-
-RUN cd /osmand/build && repo init -u https://github.com/osmandapp/OsmAnd-manifest -m android_build.xml && repo sync -d -c -q
-RUN source ~/.bashrc && cd /osmand/build/android/OsmAnd && ../gradlew --info cleanNoTranslate assembleFullLegacyFatDebug && find -iname '*.apk' -exec cp {} /osmand/output/ \;
+RUN echo `alias update_repos='cd /osmand/build && repo sync -d -c -q'` >> /root/.bashrc
+RUN cd /osmand/build && repo init -u https://github.com/osmandapp/OsmAnd-manifest -m android_build.xml
+RUN source ~/.bashrc && update_repos && nightly_build
 
 VOLUME ["/osmand/output"]
