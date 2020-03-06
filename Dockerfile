@@ -4,11 +4,8 @@ SHELL ["/bin/bash", "-c"]
 
 RUN echo '' > /etc/apt/sources.list
 RUN echo 'deb http://deb.debian.org/debian stretch main contrib non-free' >> /etc/apt/sources.list
-RUN echo 'deb-src http://deb.debian.org/debian stretch main contrib non-free' >> /etc/apt/sources.list
 RUN echo 'deb http://deb.debian.org/debian stretch-updates main contrib non-free' >> /etc/apt/sources.list
-RUN echo 'deb-src http://deb.debian.org/debian stretch-updates main contrib non-free' >> /etc/apt/sources.list
 RUN echo 'deb http://security.debian.org/debian-security/ stretch/updates main contrib non-free' >> /etc/apt/sources.list
-RUN echo 'deb-src http://security.debian.org/debian-security/ stretch/updates main contrib non-free' >> /etc/apt/sources.list
 
 RUN apt-get update
 RUN mkdir -p /usr/share/man/man1
